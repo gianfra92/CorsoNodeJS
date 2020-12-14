@@ -28,5 +28,3 @@
 
 // console.log('messaggio dopo la funzione')
 // // console.log('Stampa di prova');
-
-console.log(process)
