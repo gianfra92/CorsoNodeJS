@@ -13,7 +13,7 @@ const getBookById = async (id) => {
 }
 
 const getBookList = async(id) => {
-    const bookList = await Book.find({_id:id}).exec();
+    const bookList = await Book.find({userId:id}).exec();
     return bookList;
 }
 
