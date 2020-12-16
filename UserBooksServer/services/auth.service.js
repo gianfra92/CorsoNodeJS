@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken');
 const { jwtKey } = require('../config/keys.js');
 const randToken = require('rand-token');
 const Access = require('../models/Access.js');
+const bcrypt = require('bcrypt');
 
 const registerUser = async (firstname, lastname, username, password) => {
+    password = await bcrypt.hash(password,10);
     const newUser = new User({
         firstname,
         lastname,
@@ -15,8 +17,11 @@ const registerUser = async (firstname, lastname, username, password) => {
 }
 
 const login = async (username, password) => {
-    const userFound = await User.findOne({ username, password }).exec();
+    const userFound = await User.findOne({ username }).exec();
     if (!userFound)
+        throw { message: 'Invalid credentials', code: 401 };
+    const passwordVerified = await bcrypt.compare(password,userFound.password);
+    if (!passwordVerified)
         throw { message: 'Invalid credentials', code: 401 };
     const access_token = jwt.sign({ id: userFound._id, scopes: 'user' },jwtKey,{expiresIn: '1h'});
     const refreshToken = randToken.uid(256);
