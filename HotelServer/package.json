@@ -1,7 +1,7 @@
 {
-  "name": "userbooksserver",
+  "name": "hotelserver",
   "version": "1.0.0",
-  "description": "Server per la gestione di Utenti e i loro libri",
+  "description": "Esercizio per la gestione di un Hotel\r     Un Hotel deve gestire un certo numero di camere e la prenotazione di esse",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,10 +15,8 @@
     "celebrate": "^13.0.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-validator": "^6.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
-    "node-schedule": "^1.3.2",
     "rand-token": "^1.0.1"
   },
   "devDependencies": {

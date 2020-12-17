@@ -1,9 +1,22 @@
 const router = require('express').Router();
 const { registerUser, login, generateNewToken, logout } = require('../services/auth.service.js');
+const {body,query,param,validationResult} = require('express-validator');
+const {celebrate, Segments, Joi} = require('celebrate');
 
-router.post('/', async (req, res) => {
+//Registrazione di un utente
+router.post('/', celebrate({
+    [Segments.BODY]:Joi.object({
+        firstname: Joi.string().required(),
+        lastname: Joi.string().required(),
+        username: Joi.string().required(),
+        password: Joi.string().required()
+    })
+}),async (req, res) => {
     const { firstname, lastname, username, password } = req.body;
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.array() });
         const newUser = await registerUser(firstname, lastname, username, password);
         res.json(newUser);
     } catch (error) {
