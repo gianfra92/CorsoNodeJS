@@ -16,7 +16,13 @@ server.use(cors());
 //Basic authentication
 // server.use(basicAuthMiddleware);
 
-server.use('/user',basicAuthMiddleware,userRouter);
+
+/* Decommentare per testare la chiamata con autenticazione */
+//percorso con controllo autenticazione
+// server.use('/user',basicAuthMiddleware,userRouter);
+
+//Chiamata senza controllo autenticazione
+server.use('/user',userRouter);
 
 Promise.all([
     mongooseLoader()
